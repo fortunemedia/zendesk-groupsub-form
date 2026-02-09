@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Group Subscription Inquiry</title>
+  <link rel="stylesheet" href="https://fortune.com/fonts/fonts.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Graphik Compact', Helvetica, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+      padding: 32px 0;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 0;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+      margin-top: 18px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      color: #1f2937;
+      background: #fafafa;
+      transition: border-color 0.2s;
+      appearance: auto;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .required {
+      color: #ef4444;
+    }
+
+    .row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .row > div {
+      flex: 1;
+      min-width: 0;
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      padding: 13px;
+      background: #004459;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #003344;
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .status {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .status.success {
+      display: block;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+
+    .status.error {
+      display: block;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 678px) {
+      body {
+        padding: 16px 0;
+        font-size: 20px;
+      }
+
+      .form-container {
+        padding: 0;
+      }
+
+      .row {
+        flex-direction: column !important;
+        gap: 0 !important;
+      }
+
+      label {
+        font-size: 1.2rem;
+        margin-top: 20px;
+      }
+
+      input, textarea, select {
+        font-size: 1.3rem;
+        padding: 16px 18px;
+        min-height: 50px;
+      }
+
+      button {
+        font-size: 1.3rem;
+        padding: 18px;
+        margin-top: 32px;
+      }
+
+      .status {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       VERCEL PROXY CONFIG
+       ============================================ -->
+  <script>
+    // ============================================
+    // Swap in your Vercel app URL here
+    // e.g. "https://your-app-name.vercel.app"
+    // ============================================
+    const PROXY_URL = "YOUR_VERCEL_URL";
+  </script>
+  <!-- ============================================ -->
+
+  <div class="form-container">
+    <!-- Full Name -->
+    <label for="fullName">Full Name <span class="required">*</span></label>
+    <input type="text" id="fullName" placeholder="Jane Smith" required />
+
+    <!-- Email -->
+    <label for="email">Email <span class="required">*</span></label>
+    <input type="email" id="email" placeholder="jane@company.com" required />
+
+    <!-- Company Name + Number of People side by side on desktop -->
+    <div class="row">
+      <div>
+        <label for="companyName">Company Name <span class="required">*</span></label>
+        <input type="text" id="companyName" placeholder="Acme Corp" required />
+      </div>
+      <div>
+        <label for="peopleCount">How many people need access? <span class="required">*</span></label>
+        <input type="number" id="peopleCount" min="1" placeholder="10" required />
+      </div>
+    </div>
+
+    <!-- Subscription Type -->
+    <label for="subType">Subscription Type <span class="required">*</span></label>
+    <select id="subType" required>
+      <option value="" disabled selected>Select a subscription type</option>
+      <option value="digital_access">Digital Access</option>
+      <option value="digital___print">Digital + Print</option>
+    </select>
+
+    <!-- Country -->
+    <label for="country">Country <span class="required">*</span></label>
+    <select id="country" required>
+      <option value="" disabled selected>Select a country</option>
+      <option value="united_states">United States</option>
+      <option value="afghanistan">Afghanistan</option>
+      <option value="albania">Albania</option>
+      <option value="algeria">Algeria</option>
+      <option value="andorra">Andorra</option>
+      <option value="angola">Angola</option>
+      <option value="antigua_and_barbuda">Antigua and Barbuda</option>
+      <option value="argentina">Argentina</option>
+      <option value="armenia">Armenia</option>
+      <option value="australia">Australia</option>
+      <option value="austria">Austria</option>
+      <option value="azerbaijan">Azerbaijan</option>
+      <option value="bahamas">Bahamas</option>
+      <option value="bahrain">Bahrain</option>
+      <option value="bangladesh">Bangladesh</option>
+      <option value="barbados">Barbados</option>
+      <option value="belarus">Belarus</option>
+      <option value="belgium">Belgium</option>
+      <option value="belize">Belize</option>
+      <option value="benin">Benin</option>
+      <option value="bhutan">Bhutan</option>
+      <option value="bolivia">Bolivia</option>
+      <option value="bosnia_and_herzegovina">Bosnia and Herzegovina</option>
+      <option value="botswana">Botswana</option>
+      <option value="brazil">Brazil</option>
+      <option value="brunei">Brunei</option>
+      <option value="bulgaria">Bulgaria</option>
+      <option value="burkina_faso">Burkina Faso</option>
+      <option value="burundi">Burundi</option>
+      <option value="cambodia">Cambodia</option>
+      <option value="cameroon">Cameroon</option>
+      <option value="canada">Canada</option>
+      <option value="cape_verde">Cape Verde</option>
+      <option value="central_african_republic">Central African Republic</option>
+      <option value="chad">Chad</option>
+      <option value="chile">Chile</option>
+      <option value="china">China</option>
+      <option value="colombia">Colombia</option>
+      <option value="comoros">Comoros</option>
+      <option value="congo__brazzaville_">Congo (Brazzaville)</option>
+      <option value="costa_rica">Costa Rica</option>
+      <option value="croatia">Croatia</option>
+      <option value="cuba">Cuba</option>
+      <option value="cyprus">Cyprus</option>
+      <option value="czech_republic">Czech Republic</option>
+      <option value="denmark">Denmark</option>
+      <option value="djibouti">Djibouti</option>
+      <option value="dominica">Dominica</option>
+      <option value="dominican_republic">Dominican Republic</option>
+      <option value="ecuador">Ecuador</option>
+      <option value="egypt">Egypt</option>
+      <option value="el_salvador">El Salvador</option>
+      <option value="equatorial_guinea">Equatorial Guinea</option>
+      <option value="eritrea">Eritrea</option>
+      <option value="estonia">Estonia</option>
+      <option value="eswatini">Eswatini</option>
+      <option value="ethiopia">Ethiopia</option>
+      <option value="fiji">Fiji</option>
+      <option value="finland">Finland</option>
+      <option value="france">France</option>
+      <option value="gabon">Gabon</option>
+      <option value="gambia">Gambia</option>
+      <option value="georgia">Georgia</option>
+      <option value="germany">Germany</option>
+      <option value="ghana">Ghana</option>
+      <option value="greece">Greece</option>
+      <option value="grenada">Grenada</option>
+      <option value="guatemala">Guatemala</option>
+      <option value="guinea">Guinea</option>
+      <option value="guinea-bissau">Guinea-Bissau</option>
+      <option value="guyana">Guyana</option>
+      <option value="haiti">Haiti</option>
+      <option value="honduras">Honduras</option>
+      <option value="hungary">Hungary</option>
+      <option value="iceland">Iceland</option>
+      <option value="indonesia">Indonesia</option>
+      <option value="iran">Iran</option>
+      <option value="iraq">Iraq</option>
+      <option value="ireland">Ireland</option>
+      <option value="israel">Israel</option>
+      <option value="italy">Italy</option>
+      <option value="jamaica">Jamaica</option>
+      <option value="japan">Japan</option>
+      <option value="jordan">Jordan</option>
+      <option value="kazakhstan">Kazakhstan</option>
+      <option value="kenya">Kenya</option>
+      <option value="kiribati">Kiribati</option>
+      <option value="kuwait">Kuwait</option>
+      <option value="kyrgyzstan">Kyrgyzstan</option>
+      <option value="laos">Laos</option>
+      <option value="latvia">Latvia</option>
+      <option value="lebanon">Lebanon</option>
+      <option value="lesotho">Lesotho</option>
+      <option value="liberia">Liberia</option>
+      <option value="libya">Libya</option>
+      <option value="liechtenstein">Liechtenstein</option>
+      <option value="lithuania">Lithuania</option>
+      <option value="luxembourg">Luxembourg</option>
+      <option value="madagascar">Madagascar</option>
+      <option value="malawi">Malawi</option>
+      <option value="malaysia">Malaysia</option>
+      <option value="maldives">Maldives</option>
+      <option value="mali">Mali</option>
+      <option value="malta">Malta</option>
+      <option value="marshall_islands">Marshall Islands</option>
+      <option value="mauritania">Mauritania</option>
+      <option value="mauritius">Mauritius</option>
+      <option value="mexico">Mexico</option>
+      <option value="micronesia">Micronesia</option>
+      <option value="moldova">Moldova</option>
+      <option value="monaco">Monaco</option>
+      <option value="mongolia">Mongolia</option>
+      <option value="montenegro">Montenegro</option>
+      <option value="morocco">Morocco</option>
+      <option value="mozambique">Mozambique</option>
+      <option value="myanmar">Myanmar</option>
+      <option value="namibia">Namibia</option>
+      <option value="nauru">Nauru</option>
+      <option value="nepal">Nepal</option>
+      <option value="netherlands">Netherlands</option>
+      <option value="new_zealand">New Zealand</option>
+      <option value="nicaragua">Nicaragua</option>
+      <option value="niger">Niger</option>
+      <option value="nigeria">Nigeria</option>
+      <option value="north_korea">North Korea</option>
+      <option value="north_macedonia">North Macedonia</option>
+      <option value="norway">Norway</option>
+      <option value="oman">Oman</option>
+      <option value="pakistan">Pakistan</option>
+      <option value="palau">Palau</option>
+      <option value="palestine">Palestine</option>
+      <option value="panama">Panama</option>
+      <option value="papua_new_guinea">Papua New Guinea</option>
+      <option value="paraguay">Paraguay</option>
+      <option value="peru">Peru</option>
+      <option value="philippines">Philippines</option>
+      <option value="poland">Poland</option>
+      <option value="portugal">Portugal</option>
+      <option value="qatar">Qatar</option>
+      <option value="romania">Romania</option>
+      <option value="russia">Russia</option>
+      <option value="rwanda">Rwanda</option>
+      <option value="saint_kitts_and_nevis">Saint Kitts and Nevis</option>
+      <option value="saint_lucia">Saint Lucia</option>
+      <option value="saint_vincent_and_the_grenadines">Saint Vincent and the Grenadines</option>
+      <option value="samoa">Samoa</option>
+      <option value="san_marino">San Marino</option>
+      <option value="sao_tome_and_principe">Sao Tome and Principe</option>
+      <option value="saudi_arabia">Saudi Arabia</option>
+      <option value="senegal">Senegal</option>
+      <option value="serbia">Serbia</option>
+      <option value="seychelles">Seychelles</option>
+      <option value="sierra_leone">Sierra Leone</option>
+      <option value="singapore">Singapore</option>
+      <option value="slovakia">Slovakia</option>
+      <option value="slovenia">Slovenia</option>
+      <option value="solomon_islands">Solomon Islands</option>
+      <option value="somalia">Somalia</option>
+      <option value="south_africa">South Africa</option>
+      <option value="south_korea">South Korea</option>
+      <option value="south_sudan">South Sudan</option>
+      <option value="spain">Spain</option>
+      <option value="sri_lanka">Sri Lanka</option>
+      <option value="sudan">Sudan</option>
+      <option value="suriname">Suriname</option>
+      <option value="sweden">Sweden</option>
+      <option value="switzerland">Switzerland</option>
+      <option value="syria">Syria</option>
+      <option value="taiwan">Taiwan</option>
+      <option value="tajikistan">Tajikistan</option>
+      <option value="tanzania">Tanzania</option>
+      <option value="thailand">Thailand</option>
+      <option value="timor-leste">Timor-Leste</option>
+      <option value="togo">Togo</option>
+      <option value="tonga">Tonga</option>
+      <option value="trinidad_and_tobago">Trinidad and Tobago</option>
+      <option value="tunisia">Tunisia</option>
+      <option value="turkey">Turkey</option>
+      <option value="turkmenistan">Turkmenistan</option>
+      <option value="tuvalu">Tuvalu</option>
+      <option value="uganda">Uganda</option>
+      <option value="ukraine">Ukraine</option>
+      <option value="united_arab_emirates">United Arab Emirates</option>
+      <option value="united_kingdom">United Kingdom</option>
+      <option value="uruguay">Uruguay</option>
+      <option value="uzbekistan">Uzbekistan</option>
+      <option value="vanuatu">Vanuatu</option>
+      <option value="vatican_city">Vatican City</option>
+      <option value="venezuela">Venezuela</option>
+      <option value="vietnam">Vietnam</option>
+      <option value="yemen">Yemen</option>
+      <option value="zambia">Zambia</option>
+      <option value="zimbabwe">Zimbabwe</option>
+    </select>
+
+    <!-- Description -->
+    <label for="description">Description <span class="required">*</span></label>
+    <textarea id="description" placeholder="Tell us about your group subscription needs..." required></textarea>
+
+    <button type="button" id="submitBtn" onclick="submitTicket()">Submit Inquiry</button>
+
+    <div class="status" id="statusMsg"></div>
+  </div>
+
+  <script>
+    // ─── Zendesk Custom Field IDs ───
+    const FIELD_COMPANY_NAME   = 42735125442068;
+    const FIELD_SUB_TYPE       = 43318283713428;
+    const FIELD_PEOPLE_COUNT   = 43281625690900;
+    const FIELD_COUNTRY        = 43281950741652;
+    const FIELD_CATEGORY       = 10405540044564;
+
+    async function submitTicket() {
+      const btn       = document.getElementById('submitBtn');
+      const statusDiv = document.getElementById('statusMsg');
+
+      // Grab form values
+      const fullName    = document.getElementById('fullName').value.trim();
+      const email       = document.getElementById('email').value.trim();
+      const companyName = document.getElementById('companyName').value.trim();
+      const peopleCount = document.getElementById('peopleCount').value.trim();
+      const subType     = document.getElementById('subType').value;
+      const country     = document.getElementById('country').value;
+      const description = document.getElementById('description').value.trim();
+
+      // Basic validation
+      if (!fullName || !email || !companyName || !peopleCount || !subType || !country || !description) {
+        showStatus('Please fill in all fields before submitting.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      statusDiv.className = 'status';
+      statusDiv.textContent = '';
+
+      // Build ticket payload
+      const payload = {
+        ticket: {
+          requester: {
+            name:  fullName,
+            email: email
+          },
+          subject: 'Group Subscription Inquiry – ' + companyName,
+          comment: {
+            body: description
+          },
+          custom_fields: [
+            { id: FIELD_COMPANY_NAME,  value: companyName },
+            { id: FIELD_SUB_TYPE,      value: subType },
+            { id: FIELD_PEOPLE_COUNT,  value: peopleCount },
+            { id: FIELD_COUNTRY,       value: country },
+            { id: FIELD_CATEGORY,      value: 'group_subscriptions' }
+          ]
+        }
+      };
+
+      // Posts to our Vercel proxy — it handles auth and forwards to Zendesk server-side
+      try {
+        const response = await fetch(
+          `${PROXY_URL}/.netlify/functions/submit`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type':  'application/json'
+            },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        if (response.ok) {
+          showStatus('Your inquiry has been submitted successfully! Our team will be in touch soon.', 'success');
+          // Reset form
+          document.getElementById('fullName').value    = '';
+          document.getElementById('email').value       = '';
+          document.getElementById('companyName').value = '';
+          document.getElementById('peopleCount').value = '';
+          document.getElementById('subType').value     = '';
+          document.getElementById('country').value     = '';
+          document.getElementById('description').value = '';
+        } else {
+          const errorData = await response.json();
+          showStatus('Submission failed: ' + (errorData.error || 'Unknown error. Please try again.'), 'error');
+        }
+      } catch (err) {
+        showStatus('Network error. Please check your connection and try again.', 'error');
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Submit Inquiry';
+    }
+
+    function showStatus(msg, type) {
+      const el = document.getElementById('statusMsg');
+      el.textContent = msg;
+      el.className = 'status ' + type;
+    }
+  </script>
+
+</body>
+</html>
