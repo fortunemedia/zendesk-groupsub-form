@@ -474,7 +474,7 @@
         );
 
         if (response.ok) {
-          showStatus('Your inquiry has been submitted successfully! Our team will be in touch soon.', 'success');
+          showStatus('Your inquiry has been submitted successfully! Our team will be in touch soon. <a href="https://fortune.com" style="color: #065f46; text-decoration: underline; font-weight: 600;">Return to fortune.com</a>', 'success');
           // Reset form
           document.getElementById('fullName').value    = '';
           document.getElementById('email').value       = '';
@@ -497,7 +497,7 @@
 
     function showStatus(msg, type) {
       const el = document.getElementById('statusMsg');
-      el.textContent = msg;
+      el.innerHTML = msg;
       el.className = 'status ' + type;
     }
   </script>
